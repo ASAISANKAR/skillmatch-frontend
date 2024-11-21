@@ -16,6 +16,8 @@ const ProfessionalPage = () => {
     profilePhoto: '',
     services: '',
   });
+  const [bookings, setBookings] = useState([]);  // State to hold bookings
+  const [showBookings, setShowBookings] = useState(false);  // State to toggle bookings visibility
 
   const handleLogout = () => {
     localStorage.removeItem('authToken');
@@ -41,9 +43,24 @@ const ProfessionalPage = () => {
       });
       const data = await response.json();
       setProfileDetails(data);
-      console.log(data);
     } catch (error) {
       console.error('Error fetching profile details:', error);
+    }
+  };
+
+  const fetchBookings = async () => {
+    try {
+      const id = localStorage.getItem('profid');
+      const response = await fetch(`http://localhost:8080/professional/bookings?id=${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      setBookings(data);
+    } catch (error) {
+      console.error('Error fetching bookings:', error);
     }
   };
 
@@ -67,11 +84,10 @@ const ProfessionalPage = () => {
         },
         body: JSON.stringify(profileDetails),
       });
-      console.log(response);
       if (response.ok) {
         alert('Profile updated successfully!');
         setShowEditForm(false);
-        fetchProfileDetails(); 
+        fetchProfileDetails();
       } else {
         alert('Error updating profile. Please try again.');
       }
@@ -83,6 +99,13 @@ const ProfessionalPage = () => {
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleBookingsClick = () => {
+    setShowBookings(!showBookings);
+    if (!showBookings) {
+      fetchBookings(); 
+    }
   };
 
   return (
@@ -99,21 +122,38 @@ const ProfessionalPage = () => {
       </header>
       <section className="professional-content">
         <p>Create and manage profiles, list services, and interact with clients.</p>
+        <button className="services-btn" onClick={handleBookingsClick}>
+          My Bookings
+        </button>
         <button className="profile-btn" onClick={handleEditClick}>
           {showEditForm ? 'Hide Edit Profile' : 'Edit Profile'}
         </button>
-        <button className="services-btn">Add Service</button>
       </section>
+
+      {showBookings && (
+        <section className="bookings-list">
+          <h2>Bookings</h2>
+          {bookings.length > 0 ? (
+            <ul>
+              {bookings.map((booking) => (
+                <li key={booking.id}>
+                  <p><strong>Client: </strong> {booking.name}</p>
+                  <p><strong>Email: </strong>{booking.email}</p>
+                  <p><strong>Address: </strong>{booking.address}</p>
+                  <p><strong>Mobile Number: </strong>{booking.number}</p>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No bookings available.</p>
+          )}
+        </section>
+      )}
 
       {showEditForm && (
         <section className="edit-profile-form">
-          <h2>Edit Profile
-          <img align="right" 
-  src={profileDetails.profilePhoto} 
-  alt="Profile" 
-  style={{ width: '100px', height: '100px', borderRadius: '50%' }} 
-/>
-</h2>
+          <h2>Edit Profile</h2>
+          
           <form onSubmit={handleFormSubmit}>
             <div className="form-group">
               <label>Name:</label>
@@ -186,18 +226,9 @@ const ProfessionalPage = () => {
                   className="toggle-password-btn"
                   onClick={togglePasswordVisibility}
                 >
-                  {showPassword ? '🙈' : '👁️'}
+                  {showPassword ? '🙈' : '👀'}
                 </button>
               </div>
-            </div>
-            <div className="form-group">
-              <label>Profile Photo URL:</label>
-              <input
-                type="text"
-                name="profilePhoto"
-                value={profileDetails.profilePhoto}
-                onChange={handleInputChange}
-              />
             </div>
             <div className="form-group">
               <label>Services:</label>
@@ -206,6 +237,7 @@ const ProfessionalPage = () => {
                 name="services"
                 value={profileDetails.services}
                 onChange={handleInputChange}
+                required
               />
             </div>
             <button type="submit" className="save-btn">

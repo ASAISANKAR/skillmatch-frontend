@@ -36,20 +36,24 @@ const LoginPage = () => {
 
 
       if (data && data.id && data.role) {
-        localStorage.setItem('clientid', data.id);
+        
         alert(data.role);
         switch (data.role) {
           case 'client':
             localStorage.setItem('authToken', `client`);
+            localStorage.setItem('clientid', data.role_specified_id);
+            localStorage.setItem('username', data.username)
             window.location.href = '/user';
             break;
           case 'admin':
             localStorage.setItem('authToken', `admin`);
+            localStorage.setItem('clientid', data.id);
             window.location.href = '/admin';
             break;
           case 'professional':
             localStorage.setItem('authToken', `professional`);
             localStorage.setItem('profid', data.role_specified_id);
+            localStorage.setItem('clientid', data.id);
             window.location.href = '/professional';
             break;
           default:

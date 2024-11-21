@@ -45,7 +45,9 @@ const UserPage = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('authToken');  
+    localStorage.removeItem('authToken'); 
+    localStorage.removeItem('clientid');
+    localStorage.removeItem('username'); 
     window.location.href = '/login';
   };
 
@@ -104,6 +106,7 @@ const UserPage = () => {
     <div className="user-page">
       <header className="users-header">
         <h1 align="center">User Dashboard</h1>
+         <h2 align='right'>Welcome, {localStorage.getItem('username')}</h2>
        <button className="logout-button" onClick={handleLogout}>
           Logout
         </button>
@@ -120,7 +123,7 @@ const UserPage = () => {
         <div className="professional-list">
           {filteredProfessionals.length > 0 ? (
             filteredProfessionals.map(professional => {
-              const isBooked = bookedProfessionals.some(booked => booked.professionalid === professional.id);
+              const isBooked = bookedProfessionals.some(booked => booked.professionalid === professional.id && booked.userid === parseInt(localStorage.getItem('clientid')));
 
               return (
                 <div className="professional-card" key={professional.id}>
