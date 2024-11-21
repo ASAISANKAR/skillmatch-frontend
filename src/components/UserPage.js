@@ -47,16 +47,15 @@ const UserPage = () => {
   const handleLogout = () => {
     localStorage.removeItem('authToken'); 
     localStorage.removeItem('clientid');
-    localStorage.removeItem('username'); 
+    localStorage.removeItem('username');
     window.location.href = '/login';
   };
 
   const handleBookProfessional = (professionalId) => {
     setBookedProfessionals(prevState => {
-      // Create a new Set with the existing elements and the new one
       const updatedSet = new Set(prevState);
       updatedSet.add(professionalId);
-      return Array.from(updatedSet); // Convert back to array and return
+      return Array.from(updatedSet); 
     });
 
     console.log(`Booking professional with ID: ${professionalId}`);
@@ -97,7 +96,7 @@ const UserPage = () => {
       });
   };
 
-  // Filter professionals based on the search query
+  
   const filteredProfessionals = professionals.filter(professional =>
     professional.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
