@@ -7,11 +7,12 @@ const UserPage = () => {
   const [bookedProfessionals, setBookedProfessionals] = useState([]);  // Ensure this is an array
 
   useEffect(() => {
-    const authToken = localStorage.getItem('authToken'); // Ensure authToken is defined
-    if (!authToken) {
-      window.location.href = '/login';  // Redirect to login page if not authenticated
-      return;
-    }
+    const authToken = localStorage.getItem('authToken'); 
+    if (!authToken || authToken !== 'client') {
+  window.location.href = '/login';
+  return;
+}
+
 
     Promise.all([
       fetch('http://localhost:8080/user/getprof').then(response => response.json()),
@@ -44,10 +45,7 @@ const UserPage = () => {
   };
 
   const handleLogout = () => {
-    // Clear session storage or local storage
-    localStorage.removeItem('authToken');  // Use localStorage if you prefer persistence
-
-    // Redirect to login page
+    localStorage.removeItem('authToken');  
     window.location.href = '/login';
   };
 
@@ -104,9 +102,9 @@ const UserPage = () => {
 
   return (
     <div className="user-page">
-      <header className="user-header">
+      <header className="users-header">
         <h1 align="center">User Dashboard</h1>
-        <button className="logout-button" onClick={handleLogout}>
+       <button className="logout-button" onClick={handleLogout}>
           Logout
         </button>
       </header>

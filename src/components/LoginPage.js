@@ -27,28 +27,29 @@ const LoginPage = () => {
       });
 
       const data = await response.json();
+      console.log('Response Data:', data);
 
-      // Check if the response indicates invalid credentials
       if (!response.ok || response.status === 401 || response.status === 403) {
         setError('Invalid credentials');
         return;
       }
 
-      // If we have data and it includes an id and role, process the login
+
       if (data && data.id && data.role) {
         localStorage.setItem('clientid', data.id);
-        
+        alert(data.role);
         switch (data.role) {
           case 'client':
-            localStorage.setItem('authToken', `client-${username}`);
+            localStorage.setItem('authToken', `client`);
             window.location.href = '/user';
             break;
           case 'admin':
-            localStorage.setItem('authToken', `admin-${username}`);
+            localStorage.setItem('authToken', `admin`);
             window.location.href = '/admin';
             break;
           case 'professional':
-            localStorage.setItem('authToken', `professional-${username}`);
+            localStorage.setItem('authToken', `professional`);
+            localStorage.setItem('profid', data.role_specified_id);
             window.location.href = '/professional';
             break;
           default:
