@@ -59,7 +59,8 @@ const LoginPage = () => {
           default:
             setError('Invalid credentials');
         }
-      } else {
+      }
+       else {
         setError('Invalid credentials');
       }
     } catch (error) {

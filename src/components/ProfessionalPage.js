@@ -240,6 +240,24 @@ const ProfessionalPage = () => {
                 required
               />
             </div>
+            <div className="form-group">
+  <label>Profile Photo (URL):</label>
+  <input
+    type="text"
+    name="profilePhoto"
+    value={profileDetails.profilePhoto}
+    onChange={handleInputChange}
+    placeholder="Enter the URL of your profile photo"
+  />
+  {profileDetails.profilePhoto && (
+    <img
+      src={profileDetails.profilePhoto}
+      alt="Profile"
+      style={{ width: '100px', height: '100px', borderRadius: '50%' }}
+    />
+  )}
+</div>
+
             <button type="submit" className="save-btn">
               Save Changes
             </button>
