@@ -264,6 +264,17 @@ const ProfessionalPage = () => {
           </form>
         </section>
       )}
+       <section className="intro-section">
+        <h3>What Can You Do Here?</h3>
+        <p>Welcome to your professional dashboard! Here you can:</p>
+        <ul>
+          <li>Edit your profile information</li>
+          <li>Manage your bookings with clients</li>
+          <li>Update your services</li>
+          <li>Change your password and personal details</li>
+        </ul>
+        <p>Start by updating your profile or checking your bookings below.</p>
+      </section>
     </div>
   );
 };
