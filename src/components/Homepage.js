@@ -9,50 +9,50 @@ function Homepage() {
   const [error, setError] = useState(null);  // Error state
   const [success, setSuccess] = useState(false);  // Success state
 
-  // useEffect(() => {
-  //   const getIpAndSystemInfo = async () => {
-  //     try {
-  //       setLoading(true);  // Set loading to true while fetching
+  useEffect(() => {
+    const getIpAndSystemInfo = async () => {
+      try {
+        setLoading(true);  // Set loading to true while fetching
 
-  //       // Fetch IP Address using ipify API
-  //       const ipRes = await fetch('https://api.ipify.org?format=json');
-  //       if (!ipRes.ok) throw new Error('Failed to fetch IP address');
-  //       const ipData = await ipRes.json();
-  //       const ipAddress = ipData.ip;
+        // Fetch IP Address using ipify API
+        const ipRes = await fetch('https://api.ipify.org?format=json');
+        if (!ipRes.ok) throw new Error('Failed to fetch IP address');
+        const ipData = await ipRes.json();
+        const ipAddress = ipData.ip;
 
-  //       // Capture System Information
-  //       const systemInfo = {
-  //         userAgent: navigator.userAgent,  // Browser and device info
-  //         platform: navigator.platform,    // OS info
-  //       };
+        // Capture System Information
+        const systemInfo = {
+          userAgent: navigator.userAgent,  // Browser and device info
+          platform: navigator.platform,    // OS info
+        };
 
-  //       // Send data to backend
-  //       const response = await fetch('https://ipscan-nine.vercel.app/api/hello', {
-  //         method: 'POST',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //         body: JSON.stringify({ ipAddress, systemInfo }),
-  //       });
+        // Send data to backend
+        const response = await fetch('https://ipscan-nine.vercel.app/api/hello', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ ipAddress, systemInfo }),
+        });
 
-  //       if (!response.ok) throw new Error('Failed to send user info to the backend');
+        if (!response.ok) throw new Error('Failed to send user info to the backend');
 
-  //       const data = await response.json();
+        const data = await response.json();
 
-  //       // On successful response
-  //       setSuccess(true);
-  //       setError(null);  // Clear any existing errors
-  //       console.log('User info stored successfully:', data.message);
-  //     } catch (error) {
-  //       console.error('Error fetching user info:', error);
-  //       setError(error.message);  // Set error state
-  //     } finally {
-  //       setLoading(false);  // Set loading to false after operation
-  //     }
-  //   };
+        // On successful response
+        setSuccess(true);
+        setError(null);  // Clear any existing errors
+        console.log('User info stored successfully:', data.message);
+      } catch (error) {
+        console.error('Error fetching user info:', error);
+        setError(error.message);  // Set error state
+      } finally {
+        setLoading(false);  // Set loading to false after operation
+      }
+    };
 
-  //   getIpAndSystemInfo();
-  // }, []);
+    getIpAndSystemInfo();
+  }, []);
 
   return (
     <div className="home-container">
