@@ -16,8 +16,8 @@ const ProfessionalPage = () => {
     profilePhoto: '',
     services: '',
   });
-  const [bookings, setBookings] = useState([]);  // State to hold bookings
-  const [showBookings, setShowBookings] = useState(false);  // State to toggle bookings visibility
+  const [bookings, setBookings] = useState([]);  
+  const [showBookings, setShowBookings] = useState(false);  
 
   const handleLogout = () => {
     localStorage.removeItem('authToken');

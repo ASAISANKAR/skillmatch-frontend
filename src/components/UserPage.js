@@ -4,7 +4,7 @@ import './UserPage.css';
 const UserPage = () => {
   const [professionals, setProfessionals] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [bookedProfessionals, setBookedProfessionals] = useState([]);  // Ensure this is an array
+  const [bookedProfessionals, setBookedProfessionals] = useState([]);  
 
   useEffect(() => {
     const authToken = localStorage.getItem('authToken'); 
@@ -27,7 +27,7 @@ const UserPage = () => {
       console.log('Fetched professionals:', professionalsData);
       console.log('Fetched booked professionals:', bookedData);
       setProfessionals(professionalsData);
-      setBookedProfessionals(Array.isArray(bookedData) ? bookedData : []);  // Ensure it's always an array
+      setBookedProfessionals(Array.isArray(bookedData) ? bookedData : []);  
       console.log('bookedData:', bookedData);
     })
     .catch(error => {
@@ -36,7 +36,7 @@ const UserPage = () => {
   }, []);
 
   useEffect(() => {
-    // Logs the updated state after it has been set
+    
     console.log('Updated booked professionals:', bookedProfessionals);
   }, [bookedProfessionals]);
 
