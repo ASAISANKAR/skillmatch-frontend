@@ -108,6 +108,10 @@ const ProfessionalPage = () => {
     }
   };
 
+  const handleContactUsClick = () => {
+    window.location.href = '/contactus';
+  };
+
   return (
     <div className="professional-page">
       <header className="professional-header">
@@ -127,6 +131,9 @@ const ProfessionalPage = () => {
         </button>
         <button className="profile-btn" onClick={handleEditClick}>
           {showEditForm ? 'Hide Edit Profile' : 'Edit Profile'}
+        </button>
+        <button className="services-btn"  onClick={handleContactUsClick}>
+          contact Us
         </button>
       </section>
 

@@ -6,6 +6,7 @@ import RegisterPage from './components/SignUp';
 import AdminPage from './components/AdminPage';
 import UserPage from './components/UserPage';
 import ProfessionalPage from './components/ProfessionalPage';
+import ContactUs from './components/ContactUs';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path='/admin' element={<AdminPage />} />
         <Route path='/user' element={<UserPage />} />
         <Route path='/professional' element={<ProfessionalPage />} />
+        <Route path='/contactus' element={<ContactUs />} />
       </Routes>
     </Router>
   );

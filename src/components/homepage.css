@@ -6,6 +6,18 @@
     font-family: 'Arial', sans-serif;
 }
 
+/* Video Background */
+.video-content {
+    position: fixed; /* Fix the video to the background */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensure the video covers the entire screen */
+    opacity: 0.7; /* Slight transparency to allow content to be more readable */
+    z-index: -1; /* Place it behind the content */
+}
+
 /* Home Container */
 .home-container {
     background-color: #f8f9fa;
@@ -14,6 +26,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
 }
 
 /* Top-right Auth Buttons Container */
@@ -66,11 +79,13 @@
 
 /* Hero Section */
 .hero-section {
-    background: linear-gradient(135deg, #2d3e50, #ff7f50);
+    background: linear-gradient(135deg, rgba(45, 62, 80, 0.7), rgba(255, 127, 80, 0.7)); /* Semi-transparent gradient */
     color: white;
     padding: 80px 20px;
     text-align: center;
     border-bottom: 5px solid #ff7f50;
+    position: relative;
+    z-index: 1; /* Ensure it's above the video */
 }
 
 .hero-section h1 {
@@ -92,6 +107,8 @@
     gap: 30px;
     padding: 50px 20px;
     background-color: #fff;
+    z-index: 1;
+    position: relative;
 }
 
 .feature-card {
@@ -101,6 +118,7 @@
     padding: 30px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    z-index: 1;
 }
 
 .feature-card h2 {
@@ -127,6 +145,7 @@
     padding: 20px;
     text-align: center;
     font-size: 1rem;
+    z-index: 1;
 }
 
 /* Responsive Design */
