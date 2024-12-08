@@ -18,7 +18,7 @@ const LoginPage = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:8080/user/check', {
+      const response = await fetch('https://saisankar.up.railway.app/user/check', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

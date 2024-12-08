@@ -211,7 +211,7 @@ function RegisterPage() {
         requestBody.services = services;
       }
 
-      const endpoint = role === 'client' ? 'http://localhost:8080/client/add' : 'http://localhost:8080/professional/add';
+      const endpoint = role === 'client' ? 'https://saisankar.up.railway.app/client/add' : 'https://saisankar.up.railway.app/professional/add';
 
       fetch(endpoint, {
         method: 'POST',

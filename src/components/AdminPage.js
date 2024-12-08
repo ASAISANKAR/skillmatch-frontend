@@ -19,7 +19,7 @@ const AdminPage = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch('http://localhost:8080/user/retrieve'); // Endpoint for all users
+      const response = await fetch('https://saisankar.up.railway.app/user/retrieve'); // Endpoint for all users
       const data = await response.json();
       console.log('Users:', data);
 

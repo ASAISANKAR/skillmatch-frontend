@@ -14,8 +14,8 @@ const UserPage = () => {
     }
 
     Promise.all([
-      fetch('http://localhost:8080/user/getprof').then(response => response.json()),
-      fetch('http://localhost:8080/client/booked-professionals', {
+      fetch('https://saisankar.up.railway.app/user/getprof').then(response => response.json()),
+      fetch('https://saisankar.up.railway.app/client/booked-professionals', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${authToken}`,
@@ -57,7 +57,7 @@ const UserPage = () => {
     const professionalid = parseInt(professionalId);
     const responsebody = { professionalid, userid: parseInt(userId) };
 
-    fetch('http://localhost:8080/client/book', {
+    fetch('https://saisankar.up.railway.app/client/book', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

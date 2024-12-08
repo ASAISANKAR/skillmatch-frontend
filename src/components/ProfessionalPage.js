@@ -36,7 +36,7 @@ const ProfessionalPage = () => {
   const fetchProfileDetails = async () => {
     try {
       const id = localStorage.getItem('profid');
-      const response = await fetch(`http://localhost:8080/professional/get?id=${id}`, {
+      const response = await fetch(`https://saisankar.up.railway.app/professional/get?id=${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('authToken')}`,
         },
@@ -51,7 +51,7 @@ const ProfessionalPage = () => {
   const fetchBookings = async () => {
     try {
       const id = localStorage.getItem('profid');
-      const response = await fetch(`http://localhost:8080/professional/bookings?id=${id}`, {
+      const response = await fetch(`https://saisankar.up.railway.app/professional/bookings?id=${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('authToken')}`,
         },
@@ -76,7 +76,7 @@ const ProfessionalPage = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:8080/professional/update', {
+      const response = await fetch('https://saisankar.up.railway.app/professional/update', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
