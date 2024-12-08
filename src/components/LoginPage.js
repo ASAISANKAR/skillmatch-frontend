@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
@@ -41,12 +42,12 @@ const LoginPage = () => {
             localStorage.setItem('authToken', `client`);
             localStorage.setItem('clientid', data.role_specified_id);
             localStorage.setItem('username', data.username);
-            window.location.href = '/user';
+            Navigate('/user');
             break;
           case 'admin':
             localStorage.setItem('authToken', `admin`);
             localStorage.setItem('clientid', data.id);
-            window.location.href = '/admin';
+            Navigate('/admin');
             break;
           case 'professional':
             localStorage.setItem('authToken', `professional`);
