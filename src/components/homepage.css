@@ -14,19 +14,20 @@
     width: 100%;
     height: 100%;
     object-fit: cover; /* Ensure the video covers the entire screen */
-    opacity: 0.7; /* Slight transparency to allow content to be more readable */
+    opacity: 1; /* Full opacity for the video */
     z-index: -1; /* Place it behind the content */
 }
 
 /* Home Container */
 .home-container {
-    background-color: #f8f9fa;
+    background-color: rgba(248, 249, 250, 0.3); /* Light transparent background */
     text-align: center;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     position: relative;
+    z-index: 1;
 }
 
 /* Top-right Auth Buttons Container */
@@ -52,38 +53,39 @@
     outline: none;
     text-transform: uppercase;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.4); /* More transparent buttons */
 }
 
 /* Login Button */
 .login-button {
-    background: linear-gradient(135deg, #00c6ff, #0072ff);
-    /* Blue Gradient */
+    background: linear-gradient(135deg, rgba(0, 198, 255, 0.7), rgba(0, 114, 255, 0.7));
+    /* Blue Gradient with transparency */
 }
 
 /* Sign Up Button */
 .signup-button {
-    background: linear-gradient(135deg, #ff7f50, #ff4500);
-    /* Orange Gradient */
+    background: linear-gradient(135deg, rgba(255, 127, 80, 0.7), rgba(255, 69, 0, 0.7));
+    /* Orange Gradient with transparency */
 }
 
 /* Hover Effects */
 .auth-button:hover {
     transform: translateY(-5px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
 .auth-button:active {
     transform: translateY(2px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* Hero Section */
 .hero-section {
-    background: linear-gradient(135deg, rgba(45, 62, 80, 0.7), rgba(255, 127, 80, 0.7)); /* Semi-transparent gradient */
+    background: linear-gradient(135deg, rgba(45, 62, 80, 0.3), rgba(255, 127, 80, 0.3)); /* More transparent gradient */
     color: white;
     padding: 80px 20px;
     text-align: center;
-    border-bottom: 5px solid #ff7f50;
+    border-bottom: 5px solid rgba(255, 127, 80, 0.5); /* Semi-transparent border */
     position: relative;
     z-index: 1; /* Ensure it's above the video */
 }
@@ -97,7 +99,7 @@
 .hero-section p {
     font-size: 1.3rem;
     margin-bottom: 40px;
-    opacity: 0.85;
+    opacity: 0.8;
 }
 
 /* Features Section */
@@ -106,14 +108,14 @@
     justify-content: center;
     gap: 30px;
     padding: 50px 20px;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.5); /* More transparent background */
     z-index: 1;
     position: relative;
 }
 
 .feature-card {
     width: 300px;
-    background-color: #f4f4f9;
+    background-color: rgba(244, 244, 249, 0.8); /* More transparent background */
     border-radius: 15px;
     padding: 30px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -138,10 +140,51 @@
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
 }
 
+/* Content Management Section */
+.card-section {
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+    background-color: rgba(255, 255, 255, 0.2); /* More transparent background */
+    z-index: 1;
+    position: relative;
+}
+
+.card {
+    width: 100%;
+    max-width: 600px;
+    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-body {
+    color: #333;
+}
+
+.card-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.card-text {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
 /* Footer Section */
 .footer-section {
-    background-color: #2d3e50;
-    color: white;
+    background-color: rgba(255, 255, 255, 0.2); /* Much lighter transparent white */
+    color: #333; /* Darker text for contrast */
     padding: 20px;
     text-align: center;
     font-size: 1rem;

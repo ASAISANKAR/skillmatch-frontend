@@ -10,12 +10,12 @@ import videoSrc from './video.mp4'; // Make sure the path is correct
 function Homepage() {
   return (
     <div className="home-container">
-      {/* Video Section */}
+      {/* Video Background */}
       <div className="video-background">
         <video src={videoSrc} autoPlay muted loop className="video-content"></video>
       </div>
 
-      {/* Content Section */}
+      {/* Content Overlay Section */}
       <div className="content-overlay">
         {/* Auth Buttons */}
         <div className="auth-buttons-container">
@@ -49,20 +49,22 @@ function Homepage() {
           </div>
         </section>
 
-        {/* Video Section - Content Management */}
-        <div className="card">
-          <div className="card-body">
-            <h5 className="card-title">Content Management</h5>
-            <p className="card-text">
-              <ul>
-                <li>Multilingual content</li>
-                <li>Support for various content types</li>
-                <li>User-generated materials</li>
-                <li>Structured storage of learning materials</li>
-              </ul>
-            </p>
+        {/* Content Management Section */}
+        <section className="card-section">
+          <div className="card">
+            <div className="card-body">
+              <h5 className="card-title">Content Management</h5>
+              <p className="card-text">
+                <ul>
+                  <li>Multilingual content</li>
+                  <li>Support for various content types</li>
+                  <li>User-generated materials</li>
+                  <li>Structured storage of learning materials</li>
+                </ul>
+              </p>
+            </div>
           </div>
-        </div>
+        </section>
       </div>
 
       {/* Footer Section */}
