@@ -2,19 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import './LoginPage.css';
 
-
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [redirectTo, setRedirectTo] = useState(null);  // Track redirection
+  const [redirectTo, setRedirectTo] = useState(null);  // Track redirection path
 
+  // Handle login form submission
   const handleLogin = async (e) => {
     e.preventDefault();
     setError('');
     setIsLoading(true);
 
+    // Input validation
     if (!username || !password) {
       setError('Please fill in all fields');
       setIsLoading(false);
@@ -33,30 +34,32 @@ const LoginPage = () => {
       const data = await response.json();
       console.log('Response Data:', data);
 
+      // Check for unsuccessful login attempt
       if (!response.ok || response.status === 401 || response.status === 403) {
         setError('Invalid credentials');
         return;
       }
 
+      // Successful login: Set local storage and redirect based on role
       if (data && data.id && data.role) {
         alert(data.role);
         switch (data.role) {
           case 'client':
-            localStorage.setItem('authToken', `client`);
+            localStorage.setItem('authToken', 'client');
             localStorage.setItem('clientid', data.role_specified_id);
             localStorage.setItem('username', data.username);
-            setRedirectTo('/user');
+            setRedirectTo('/user'); // Redirect to user page
             break;
           case 'admin':
-            localStorage.setItem('authToken', `admin`);
+            localStorage.setItem('authToken', 'admin');
             localStorage.setItem('clientid', data.id);
-            setRedirectTo('/admin');
+            setRedirectTo('/admin'); // Redirect to admin page
             break;
           case 'professional':
-            localStorage.setItem('authToken', `professional`);
+            localStorage.setItem('authToken', 'professional');
             localStorage.setItem('profid', data.role_specified_id);
             localStorage.setItem('clientid', data.id);
-            setRedirectTo('/professional');
+            setRedirectTo('/professional'); // Redirect to professional page
             break;
           default:
             setError('Invalid credentials');
@@ -72,13 +75,12 @@ const LoginPage = () => {
         setError('Invalid credentials');
       }
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); // Hide the loading spinner
     }
   };
 
-  // UseEffect for canvas animation (not related to hooks rule error)
+  // Canvas animation setup (optional and unrelated to login functionality)
   useEffect(() => {
-    // Canvas animation
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
     const particles = [];
@@ -141,9 +143,13 @@ const LoginPage = () => {
 
     window.addEventListener('mousemove', createParticles);
     animate();
+
+    return () => {
+      window.removeEventListener('mousemove', createParticles); // Clean up on component unmount
+    };
   }, []);
 
-  // Conditionally redirect using Navigate component
+  // Conditionally redirect using the Navigate component if redirectTo is set
   if (redirectTo) {
     return <Navigate to={redirectTo} />;
   }
@@ -193,10 +199,6 @@ const LoginPage = () => {
           </a>
         </div>
       </div>
-
-      <style>
-        {/* Your CSS styles */}
-      </style>
     </div>
   );
 };

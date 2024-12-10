@@ -2,10 +2,12 @@ import React, { useEffect } from 'react';
 import './homepage.css';
 import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Link } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom'; // Import useNavigate
 import videoSrc from './video.mp4';
 
 function Homepage() {
+  const navigate = useNavigate(); // Initialize navigate
+
   useEffect(() => {
     const sendIpToBackend = async () => {
       try {
@@ -23,6 +25,16 @@ function Homepage() {
     sendIpToBackend();
   }, []);
 
+  // Handle login button click to navigate to login page
+  const handleLogin = () => {
+    navigate('/login');
+  };
+
+  // Handle signup button click to navigate to signup page
+  const handleSignup = () => {
+    navigate('/register');
+  };
+
   return (
     <div className="home-container">
       <div className="video-background">
@@ -30,12 +42,9 @@ function Homepage() {
       </div>
       <div className="content-overlay">
         <div className="auth-buttons-container">
-          <Link to="/login">
-            <Button className="auth-button login-button">Login</Button>
-          </Link>
-          <Link to="/register">
-            <Button className="auth-button signup-button">Sign Up</Button>
-          </Link>
+          {/* Using useNavigate for button click */}
+          <Button className="auth-button login-button" onClick={handleLogin}>Login</Button>
+          <Button className="auth-button signup-button" onClick={handleSignup}>Sign Up</Button>
         </div>
         <header className="hero-section">
           <h1>Find the Right Professional for Your Needs</h1>

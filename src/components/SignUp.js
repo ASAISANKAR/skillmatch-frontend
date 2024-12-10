@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';  // Import useNavigate from react-router-dom
 import styled from 'styled-components';
 
 // Styled components for the form and other elements
@@ -167,6 +168,8 @@ function RegisterPage() {
   const [error, setError] = useState('');
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
 
+  const navigate = useNavigate(); // Initialize navigate
+
   useEffect(() => {
     const handleMouseMove = (e) => {
       setCursorPosition({ x: e.clientX, y: e.clientY });
@@ -223,7 +226,7 @@ function RegisterPage() {
         .then((response) => response.json())
         .then((data) => {
           console.log('Success:', data);
-          window.location.href = '/login';
+          navigate('/login'); // Use navigate for redirection
         })
         .catch((error) => {
           console.error('Error:', error);
@@ -330,6 +333,7 @@ function RegisterPage() {
               required
             >
               <option value="client">Client</option>
+              {/* Add other roles if needed */}
             </Select>
           </FormGroup>
 

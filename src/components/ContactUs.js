@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
 
 const ContactUs = () => {
-  // State to toggle the form visibility
   const [isFormVisible, setIsFormVisible] = useState(false);
-
-  // State to store form input values
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -12,18 +10,26 @@ const ContactUs = () => {
     message: '',
   });
 
+  const navigate = useNavigate(); // Initialize navigate for redirection
+
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevent page reload on form submit
     alert('Form submitted successfully!');
     console.log(formData); // For debugging, log the form data to the console
+
+    // Clear the form data after submission
     setFormData({
       name: '',
       email: '',
       subject: '',
       message: '',
     });
+
     setIsFormVisible(false); // Hide the form after submission
+
+    // Redirect to another page (e.g., 'thank-you' page or homepage)
+    navigate('/thank-you'); // Redirect to '/thank-you' page or adjust to any desired path
   };
 
   // Handle input change for form fields

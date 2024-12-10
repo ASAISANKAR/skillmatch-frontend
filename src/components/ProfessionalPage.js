@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 import './ProfessionalPage.css';
 
 const ProfessionalPage = () => {
   const [showEditForm, setShowEditForm] = useState(false);
-  const [showPassword, setShowPassword] = useState(false); 
+  const [showPassword, setShowPassword] = useState(false);
   const [profileDetails, setProfileDetails] = useState({
     id: '',
     name: '',
@@ -16,23 +17,27 @@ const ProfessionalPage = () => {
     profilePhoto: '',
     services: '',
   });
-  const [bookings, setBookings] = useState([]);  
-  const [showBookings, setShowBookings] = useState(false);  
+  const [bookings, setBookings] = useState([]);
+  const [showBookings, setShowBookings] = useState(false);
+  const [redirectTo, setRedirectTo] = useState(null); // Track redirection path
 
+  // Logout function using Navigate for redirection
   const handleLogout = () => {
     localStorage.removeItem('authToken');
-    window.location.href = '/login';
+    setRedirectTo('/login');
   };
 
+  // Check authentication and fetch profile details
   useEffect(() => {
     const authToken = localStorage.getItem('authToken');
     if (!authToken || authToken !== 'professional') {
-      window.location.href = '/login';
+      setRedirectTo('/login');
       return;
     }
     fetchProfileDetails();
   }, []);
 
+  // Fetch profile details from the API
   const fetchProfileDetails = async () => {
     try {
       const id = localStorage.getItem('profid');
@@ -48,6 +53,7 @@ const ProfessionalPage = () => {
     }
   };
 
+  // Fetch bookings for the professional
   const fetchBookings = async () => {
     try {
       const id = localStorage.getItem('profid');
@@ -57,22 +63,24 @@ const ProfessionalPage = () => {
         },
       });
       const data = await response.json();
-      console.log(data);
       setBookings(data);
     } catch (error) {
       console.error('Error fetching bookings:', error);
     }
   };
 
+  // Toggle Edit Profile Form visibility
   const handleEditClick = () => {
     setShowEditForm(!showEditForm);
   };
 
+  // Handle input changes for the profile form
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setProfileDetails({ ...profileDetails, [name]: value });
   };
 
+  // Submit updated profile data to the server
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -97,10 +105,12 @@ const ProfessionalPage = () => {
     }
   };
 
+  // Toggle password visibility
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
+  // Handle bookings section visibility
   const handleBookingsClick = () => {
     setShowBookings(!showBookings);
     if (!showBookings) {
@@ -108,9 +118,15 @@ const ProfessionalPage = () => {
     }
   };
 
+  // Handle Contact Us navigation
   const handleContactUsClick = () => {
-    window.location.href = '/contactus';
+    setRedirectTo('/contactus');
   };
+
+  // Conditionally redirect if `redirectTo` is set
+  if (redirectTo) {
+    return <Navigate to={redirectTo} />;
+  }
 
   return (
     <div className="professional-page">
@@ -118,8 +134,8 @@ const ProfessionalPage = () => {
         <h1>Professional Dashboard</h1>
         <h2 align='right'>Welcome, {profileDetails.name}</h2>
         <img align="right" src={profileDetails.profilePhoto} 
-         alt="Profile" 
-         style={{ width: '100px', height: '100px', borderRadius: '50%' }} />
+          alt="Profile" 
+          style={{ width: '100px', height: '100px', borderRadius: '50%' }} />
         <button className="logout-button" onClick={handleLogout}>
           Logout
         </button>
@@ -132,8 +148,8 @@ const ProfessionalPage = () => {
         <button className="profile-btn" onClick={handleEditClick}>
           {showEditForm ? 'Hide Edit Profile' : 'Edit Profile'}
         </button>
-        <button className="services-btn"  onClick={handleContactUsClick}>
-          contact Us
+        <button className="services-btn" onClick={handleContactUsClick}>
+          Contact Us
         </button>
       </section>
 
@@ -248,22 +264,22 @@ const ProfessionalPage = () => {
               />
             </div>
             <div className="form-group">
-  <label>Profile Photo (URL):</label>
-  <input
-    type="text"
-    name="profilePhoto"
-    value={profileDetails.profilePhoto}
-    onChange={handleInputChange}
-    placeholder="Enter the URL of your profile photo"
-  />
-  {profileDetails.profilePhoto && (
-    <img
-      src={profileDetails.profilePhoto}
-      alt="Profile"
-      style={{ width: '100px', height: '100px', borderRadius: '50%' }}
-    />
-  )}
-</div>
+              <label>Profile Photo (URL):</label>
+              <input
+                type="text"
+                name="profilePhoto"
+                value={profileDetails.profilePhoto}
+                onChange={handleInputChange}
+                placeholder="Enter the URL of your profile photo"
+              />
+              {profileDetails.profilePhoto && (
+                <img
+                  src={profileDetails.profilePhoto}
+                  alt="Profile"
+                  style={{ width: '100px', height: '100px', borderRadius: '50%' }}
+                />
+              )}
+            </div>
 
             <button type="submit" className="save-btn">
               Save Changes
@@ -271,17 +287,6 @@ const ProfessionalPage = () => {
           </form>
         </section>
       )}
-       <section className="intro-section">
-        <h3>What Can You Do Here?</h3>
-        <p>Welcome to your professional dashboard! Here you can:</p>
-        <ul>
-          <li>Edit your profile information</li>
-          <li>Manage your bookings with clients</li>
-          <li>Update your services</li>
-          <li>Change your password and personal details</li>
-        </ul>
-        <p>Start by updating your profile or checking your bookings below.</p>
-      </section>
     </div>
   );
 };

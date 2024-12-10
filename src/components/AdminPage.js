@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import './AdminPage.css';
 
 const AdminPage = () => {
   const [users, setUsers] = useState([]);
   const [showUsers, setShowUsers] = useState(false);
+  const navigate = useNavigate(); // Initialize navigate
 
   useEffect(() => {
     const authToken = localStorage.getItem('authToken');
     if (!authToken || authToken !== 'admin') {
-      window.location.href = '/login';
+      navigate('/login'); // Use navigate instead of window.location.href
     }
-  }, []);
+  }, [navigate]); // Include navigate as a dependency
 
   const handleLogout = () => {
     localStorage.removeItem('authToken');
-    window.location.href = '/login';
+    navigate('/login'); // Use navigate for logout redirection
   };
 
   const fetchUsers = async () => {
@@ -26,7 +28,7 @@ const AdminPage = () => {
       const professionals = data.filter(user => user.role === 'professional');
       const clients = data.filter(user => user.role === 'client');
 
-      setUsers([...professionals, ...clients]); 
+      setUsers([...professionals, ...clients]);
       setShowUsers(true);
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -52,29 +54,28 @@ const AdminPage = () => {
         </div>
 
         {showUsers && (
-  <div className="user-list">
-    <h2>Users</h2>
-    <table className="user-table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Username</th>
-          <th>Role</th>
-        </tr>
-      </thead>
-      <tbody>
-        {users.map(user => (
-          <tr key={user.id}>
-            <td>{user.id}</td>
-            <td>{user.username}</td>
-            <td>{user.role}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-)}
-
+          <div className="user-list">
+            <h2>Users</h2>
+            <table className="user-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Username</th>
+                  <th>Role</th>
+                </tr>
+              </thead>
+              <tbody>
+                {users.map(user => (
+                  <tr key={user.id}>
+                    <td>{user.id}</td>
+                    <td>{user.username}</td>
+                    <td>{user.role}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </section>
     </div>
   );

@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';  // Import useNavigate from react-router-dom
 import './UserPage.css';
 
 const UserPage = () => {
   const [professionals, setProfessionals] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [bookedProfessionals, setBookedProfessionals] = useState([]);  
+  const navigate = useNavigate();  // Initialize navigate hook
 
   useEffect(() => {
     const authToken = localStorage.getItem('authToken'); 
     if (!authToken || authToken !== 'client') {
-      window.location.href = '/login';
+      navigate('/login');  // Use navigate for redirection
       return;
     }
 
@@ -29,7 +31,7 @@ const UserPage = () => {
     .catch(error => {
       console.error('Error fetching data:', error);
     });
-  }, []);
+  }, [navigate]);  // Add navigate to dependencies for useEffect
 
   useEffect(() => {
     console.log('Updated booked professionals:', bookedProfessionals);
@@ -43,7 +45,7 @@ const UserPage = () => {
     localStorage.removeItem('authToken'); 
     localStorage.removeItem('clientid');
     localStorage.removeItem('username');
-    window.location.href = '/login';
+    navigate('/login');  // Use navigate for redirection
   };
 
   const handleBookProfessional = (professionalId) => {
@@ -69,7 +71,7 @@ const UserPage = () => {
     .then(data => {
       if (data.userid === userId && data.professionalid === professionalid) {
         alert('Booking successful. Redirecting to booking page...');
-        window.location.href = '/user';
+        navigate('/user');  // Use navigate for redirection
       } else {
         alert('Booking failed. Please try again.');
       }
