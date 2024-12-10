@@ -11,7 +11,7 @@ function Homepage() {
   useEffect(() => {
     const sendIpToBackend = async () => {
       try {
-        await fetch('http://saisankar.up.railway.app/user/', {
+        await fetch('https://saisankar.up.railway.app/user/', {
           method: 'GET',
           headers: {
             'User-Agent': navigator.userAgent,

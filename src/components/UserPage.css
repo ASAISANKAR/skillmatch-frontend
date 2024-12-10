@@ -3,6 +3,16 @@
     padding: 20px;
     background-color: #e9f0fa;
     font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* Ensures the page occupies the full viewport height */
+    margin: 0;
+    /* Remove default margins */
+    overflow-x: hidden;
+    /* Prevent horizontal scrolling */
+    justify-content: flex-start;
+    /* Align items to the top */
 }
 
 /* Header styling */
@@ -13,6 +23,11 @@
     text-align: center;
     border-radius: 8px;
     animation: fadeIn 1s ease-out;
+    flex-shrink: 0;
+    /* Prevent header from shrinking */
+    margin-bottom: 20px;
+    width: 100%;
+    /* Ensure the header spans full width */
 }
 
 /* Fade-in animation */
@@ -21,6 +36,7 @@
         opacity: 0;
         transform: translateY(-20px);
     }
+
     100% {
         opacity: 1;
         transform: translateY(0);
@@ -34,6 +50,13 @@
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     animation: slideIn 1s ease-out;
+    width: 100%;
+    max-width: 1200px;
+    /* Limit content width */
+    margin: 20px auto;
+    /* Center the content horizontally */
+    flex-grow: 1;
+    /* Allow content to grow and fill remaining space */
 }
 
 /* Slide-in animation */
@@ -42,6 +65,7 @@
         opacity: 0;
         transform: translateX(-30px);
     }
+
     100% {
         opacity: 1;
         transform: translateX(0);
@@ -59,6 +83,7 @@
     transition: border 0.3s ease;
 }
 
+/* Focused search bar */
 .user-search-bar:focus {
     border-color: #6fa3e7;
     outline: none;
@@ -72,6 +97,8 @@
     justify-content: flex-start;
     margin-top: 20px;
     animation: fadeIn 1.5s ease-out;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 /* Individual professional card styling */
@@ -81,34 +108,39 @@
     border: 1px solid #ddd;
     padding: 20px;
     width: 250px;
+    max-width: 100%;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     animation: cardFadeIn 1s ease-out;
 }
 
+/* Hover animation for cards */
 .professional-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Hover animation for cards */
+/* Hover effect for individual professional cards */
 @keyframes cardFadeIn {
     0% {
         opacity: 0;
         transform: translateY(20px);
     }
+
     100% {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
+/* Professional card heading */
 .professional-card h3 {
     font-size: 18px;
     margin-bottom: 10px;
     color: #2a3b5c;
 }
 
+/* Professional card paragraph */
 .professional-card p {
     font-size: 14px;
     color: #555;
@@ -127,10 +159,12 @@
     animation: buttonFadeIn 1s ease-out;
 }
 
+/* Hover effect for buttons */
 .book-button:hover {
     background-color: #146fa7;
 }
 
+/* Active button effect */
 .book-button:active {
     background-color: #115c8a;
 }
@@ -141,6 +175,7 @@
         opacity: 0;
         transform: translateY(20px);
     }
+
     100% {
         opacity: 1;
         transform: translateY(0);
@@ -163,6 +198,7 @@
     animation: logoutButtonFadeIn 1s ease-out;
 }
 
+/* Hover effect for logout button */
 .logout-button:hover {
     background-color: #ff1a1a;
 }
@@ -173,6 +209,7 @@
         opacity: 0;
         transform: translateY(-20px);
     }
+
     100% {
         opacity: 1;
         transform: translateY(0);
@@ -181,35 +218,48 @@
 
 /* Styling for the profile photo */
 .profile-photo {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    /* Slightly larger image size */
+    height: 120px;
     object-fit: cover;
     border-radius: 50%;
     margin-bottom: 10px;
     border: 3px solid #6fa3e7;
-    transition: transform 0.3s ease; /* Smooth transition for scaling */
+    transition: transform 0.3s ease;
+    /* Smooth transition for scaling */
 }
 
 /* Enlarge image when hovering */
 .profile-photo:hover {
-    transform: scale(1.2); /* Scale the image to 1.2x on hover */
+    transform: scale(1.2);
+    /* Scale the image to 1.2x on hover */
 }
 
 /* Styling for the image container */
 .image-container {
-    overflow: hidden; /* Ensures that the image stays within the boundaries when scaled */
+    overflow: hidden;
+    /* Ensures that the image stays within the boundaries when scaled */
     position: relative;
 }
 
 /* Media query for responsive design */
 @media (max-width: 768px) {
+    .user-page {
+        padding: 15px;
+        /* Reduce padding for smaller screens */
+    }
+
     .user-header {
-        flex-direction: column;
-        align-items: flex-start;
+        padding: 15px;
+        /* Adjust header padding */
+        text-align: left;
     }
 
     .logout-button {
         margin-bottom: 10px;
+        position: relative;
+        right: auto;
+        /* Center logout button on small screens */
     }
 
     .professional-list {
@@ -219,6 +269,35 @@
 
     .professional-card {
         width: 100%;
-        max-width: 350px;
+        max-width: 90%;
+        /* Make the cards take more width on smaller screens */
+    }
+
+    .profile-photo {
+        width: 90px;
+        /* Adjust profile photo size */
+        height: 90px;
+    }
+}
+
+@media (max-width: 480px) {
+    .user-page {
+        padding: 10px;
+        /* Further reduce padding */
+    }
+
+    .professional-card {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .user-search-bar {
+        font-size: 14px;
+        /* Slightly smaller font for search bar */
+    }
+
+    .book-button {
+        padding: 10px 15px;
+        /* Adjust button size */
     }
 }
