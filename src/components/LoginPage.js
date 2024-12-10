@@ -31,48 +31,49 @@ const LoginPage = () => {
         body: JSON.stringify({ username, password }),
       });
 
+      // Handle non-JSON response
+      if (!response.ok) {
+        const message = await response.text();  // Read as text in case it's not JSON
+        throw new Error(message || 'Unknown error');
+      }
+
       const data = await response.json();
       console.log('Response Data:', data);
 
       // Check for unsuccessful login attempt
-      if (!response.ok || response.status === 401 || response.status === 403) {
+      if (!data || !data.id || !data.role) {
         setError('Invalid credentials');
         return;
       }
 
       // Successful login: Set local storage and redirect based on role
-      if (data && data.id && data.role) {
-        alert(data.role);
-        switch (data.role) {
-          case 'client':
-            localStorage.setItem('authToken', 'client');
-            localStorage.setItem('clientid', data.role_specified_id);
-            localStorage.setItem('username', data.username);
-            setRedirectTo('/user'); // Redirect to user page
-            break;
-          case 'admin':
-            localStorage.setItem('authToken', 'admin');
-            localStorage.setItem('clientid', data.id);
-            setRedirectTo('/admin'); // Redirect to admin page
-            break;
-          case 'professional':
-            localStorage.setItem('authToken', 'professional');
-            localStorage.setItem('profid', data.role_specified_id);
-            localStorage.setItem('clientid', data.id);
-            setRedirectTo('/professional'); // Redirect to professional page
-            break;
-          default:
-            setError('Invalid credentials');
-        }
-      } else {
-        setError('Invalid credentials');
+      switch (data.role) {
+        case 'client':
+          localStorage.setItem('authToken', 'client');
+          localStorage.setItem('clientid', data.role_specified_id);
+          localStorage.setItem('username', data.username);
+          setRedirectTo('/user');  // Redirect to user page
+          break;
+        case 'admin':
+          localStorage.setItem('authToken', 'admin');
+          localStorage.setItem('clientid', data.id);
+          setRedirectTo('/admin');  // Redirect to admin page
+          break;
+        case 'professional':
+          localStorage.setItem('authToken', 'professional');
+          localStorage.setItem('profid', data.role_specified_id);
+          localStorage.setItem('clientid', data.id);
+          setRedirectTo('/professional');  // Redirect to professional page
+          break;
+        default:
+          setError('Invalid credentials');
       }
     } catch (error) {
       console.error('Login error:', error);
       if (error.message === 'Failed to fetch') {
         setError('Unable to connect to the server. SERVER DOWN.');
       } else {
-        setError('Invalid credentials');
+        setError(error.message || 'Invalid credentials');
       }
     } finally {
       setIsLoading(false); // Hide the loading spinner
