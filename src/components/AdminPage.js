@@ -10,18 +10,14 @@ const AdminPage = () => {
   useEffect(() => {
     const authToken = localStorage.getItem('authToken');
     if (!authToken || authToken !== 'admin') {
-      navigate('/login'); // Use navigate instead of window.location.href
+      navigate('/login'); // Redirect to login if not authenticated
     }
-  }, [navigate]); // Include navigate as a dependency
+  }, [navigate]);
 
-  const handleLogout = () => {
-    localStorage.removeItem('authToken');
-    navigate('/login'); // Use navigate for logout redirection
-  };
-
+  // Fetch users from the backend
   const fetchUsers = async () => {
     try {
-      const response = await fetch('https://saisankar.up.railway.app/user/retrieve'); // Endpoint for all users
+      const response = await fetch('https://saisankar.up.railway.app/user/retrieve');
       const data = await response.json();
       console.log('Users:', data);
 
@@ -35,6 +31,11 @@ const AdminPage = () => {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('authToken');
+    navigate('/login');
+  };
+
   return (
     <div className="admin-page">
       <header className="admin-header">
@@ -43,6 +44,7 @@ const AdminPage = () => {
           Logout
         </button>
       </header>
+
       <section className="admin-content">
         <p>Manage platform settings, user roles, and service listings.</p>
         <div className="admin-buttons">

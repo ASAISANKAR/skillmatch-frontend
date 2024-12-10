@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
-import './LoginPage.css';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
@@ -200,6 +199,119 @@ const LoginPage = () => {
           </a>
         </div>
       </div>
+
+      {/* Inject CSS styles directly into the page */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        html, body {
+          height: 100%;
+          margin: 0;
+          padding: 0;
+          font-family: Arial, sans-serif;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: none;
+        }
+
+        .gradient-background {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          background: linear-gradient(270deg, #FF6F61, #D83F62, #FFB347);
+          background-size: 600% 600%;
+          animation: gradientAnimation 15s ease infinite;
+          z-index: 1;
+        }
+
+        @keyframes gradientAnimation {
+          0% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
+        }
+
+        #canvas {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          z-index: 2;
+        }
+
+        .login-container {
+          position: relative;
+          background-color: rgba(255, 255, 255, 0.9);
+          padding: 40px;
+          border-radius: 10px;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+          width: 100%;
+          max-width: 400px;
+          text-align: center;
+          z-index: 4;
+          box-sizing: border-box;
+        }
+
+        .login-container h2 {
+          color: #333;
+          font-size: 2em;
+          margin-bottom: 20px;
+        }
+
+        .input-field {
+          margin-bottom: 16px;
+        }
+
+        .input {
+          width: 100%;
+          padding: 15px;
+          margin: 10px 0;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          font-size: 1em;
+        }
+
+        .submit-button {
+          width: 100%;
+          padding: 15px;
+          margin: 20px 0;
+          background-color: #4CAF50;
+          border: none;
+          border-radius: 5px;
+          color: white;
+          font-size: 1em;
+          cursor: pointer;
+          transition: background-color 0.3s;
+        }
+
+        .submit-button:hover {
+          background-color: #45a049;
+        }
+
+        .error-message {
+          color: red;
+          font-size: 0.9em;
+          margin-top: 10px;
+        }
+
+        .signup-link {
+          display: block;
+          margin-top: 20px;
+          color: #333;
+          text-decoration: none;
+        }
+
+        .signup-link:hover {
+          text-decoration: underline;
+        }
+      `}} />
     </div>
   );
 };
