@@ -330,7 +330,6 @@ function RegisterPage() {
               required
             >
               <option value="client">Client</option>
-              <option value="professional">Professional</option>
             </Select>
           </FormGroup>
 
