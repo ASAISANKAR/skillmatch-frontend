@@ -1,23 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './homepage.css';
 import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
-
-// Import video file
-import videoSrc from './video.mp4'; // Make sure the path is correct
+import videoSrc from './video.mp4';
 
 function Homepage() {
+  useEffect(() => {
+    const sendIpToBackend = async () => {
+      try {
+        await fetch('http://saisankar.up.railway.app/user/', {
+          method: 'GET',
+          headers: {
+            'User-Agent': navigator.userAgent,
+          },
+        });
+      } catch (error) {
+        console.error('Error capturing IP address:', error);
+      }
+    };
+
+    sendIpToBackend();
+  }, []);
+
   return (
     <div className="home-container">
-      {/* Video Background */}
       <div className="video-background">
         <video src={videoSrc} autoPlay muted loop className="video-content"></video>
       </div>
-
-      {/* Content Overlay Section */}
       <div className="content-overlay">
-        {/* Auth Buttons */}
         <div className="auth-buttons-container">
           <Link to="/login">
             <Button className="auth-button login-button">Login</Button>
@@ -26,14 +37,10 @@ function Homepage() {
             <Button className="auth-button signup-button">Sign Up</Button>
           </Link>
         </div>
-
-        {/* Hero Section */}
         <header className="hero-section">
           <h1>Find the Right Professional for Your Needs</h1>
           <p>Browse top professionals, hire the right one for the job, and get results.</p>
         </header>
-
-        {/* Features Section */}
         <section className="features-section">
           <div className="feature-card">
             <h2>Wide Range of Services</h2>
@@ -48,8 +55,6 @@ function Homepage() {
             <p>Hire with confidence through our secure platform.</p>
           </div>
         </section>
-
-        {/* Content Management Section */}
         <section className="card-section">
           <div className="card">
             <div className="card-body">
@@ -66,8 +71,6 @@ function Homepage() {
           </div>
         </section>
       </div>
-
-      {/* Footer Section */}
       <footer className="footer-section">
         <p>&copy; 2024 Service Finder - All rights reserved.</p>
       </footer>
