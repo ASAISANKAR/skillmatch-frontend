@@ -16,7 +16,7 @@ function Homepage() {
           },
         });
       } catch (error) {
-        console.error('Error capturing IP address:', error);
+        console.error('Error capturing IP address: ', error);
       }
     };
 
